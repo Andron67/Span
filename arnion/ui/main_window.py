@@ -1,7 +1,9 @@
 import tkinter as tk
 
-from arnion.db.mysql_connection import ConnectionHandler
-
+from arnion.data.departments_data import DepartmentDataHandler, DepartmentDataObject
+from arnion.data.employees_data import EmployeeDataHandler, EmployeeDataObject
+from arnion.ui.departmens_repots_ui import DepartmentsReportWindow
+from arnion.ui.employees_repots_ui import EmployeesReportWindow
 
 class MainWindow:
     # Конструктор
@@ -24,11 +26,11 @@ class MainWindow:
         lbl_title.place(x=25, y=155, width=250, height=50)
 
         # Добавление кнопки данных "Отделы"
-        btn_report = tk.Button(self.window, text="Отделы", font=('Helvetica', 10, 'bold'), bg='#ccffcc')
+        btn_report = tk.Button(self.window, text="Отделы", font=('Helvetica', 10, 'bold'), bg='#ccffcc', command=self.do_report_departments)
         btn_report.place(x=25, y=200, width=120, height=50)
 
         # Добавление кнопки данных "Сотрудники"
-        btn_report = tk.Button(self.window, text="Сотрудники", font=('Helvetica', 10, 'bold'), bg='#ccffcc')
+        btn_report = tk.Button(self.window, text="Сотрудники", font=('Helvetica', 10, 'bold'), bg='#ccffcc', command=self.do_report_employees)
         btn_report.place(x=160, y=200, width=120, height=50)
 
         # Добавление кнопки данных "Отделы"
@@ -49,8 +51,20 @@ class MainWindow:
 
     # Функция Тест
     def do_test(self):
-        ch = ConnectionHandler()
-        ch.do_test()
+        employee = EmployeeDataObject(first_name = "Ирина", middle_name = "Анатольевна", last_name = "Князева", department_id=3)
+        print(employee.employee_id)
+        EmployeeDataHandler.insert(employee)
+        print(employee.employee_id)
+        print("Готово")
+
+
+    def do_report_departments(self):
+        rpt = DepartmentsReportWindow()
+        rpt.open()
+
+    def do_report_employees(self):
+        rpt = EmployeesReportWindow()
+        rpt.open()
 
     # Функция закрытия главного окна программы
     def close(self):
