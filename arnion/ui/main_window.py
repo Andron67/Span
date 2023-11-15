@@ -1,8 +1,9 @@
 import tkinter as tk
 
-from arnion.data.departments_data import DepartmentDataHandler, DepartmentDataObject
 from arnion.data.employees_data import EmployeeDataHandler, EmployeeDataObject
+from arnion.ui.departmens_data_ui import DepartmentsWindow
 from arnion.ui.departmens_repots_ui import DepartmentsReportWindow
+from arnion.ui.employee_data_ui import EmployeesWindow
 from arnion.ui.employees_repots_ui import EmployeesReportWindow
 
 class MainWindow:
@@ -34,11 +35,11 @@ class MainWindow:
         btn_report.place(x=160, y=200, width=120, height=50)
 
         # Добавление кнопки данных "Отделы"
-        btn_report = tk.Button(self.window, text="Отделы", font=('Helvetica', 10, 'bold'), bg='#ccffcc')
+        btn_report = tk.Button(self.window, text="Отделы", font=('Helvetica', 10, 'bold'), bg='#ccffcc', command=self.do_list_departments)
         btn_report.place(x=25, y=100, width=120, height=50)
 
         # Добавление кнопки данных "Сотрудники"
-        btn_report = tk.Button(self.window, text="Сотрудники", font=('Helvetica', 10, 'bold'), bg='#ccffcc')
+        btn_report = tk.Button(self.window, text="Сотрудники", font=('Helvetica', 10, 'bold'), bg='#ccffcc', command=self.do_list_employees)
         btn_report.place(x=160, y=100, width=120, height=50)
 
         # Добавление кнопки Тест
@@ -51,11 +52,21 @@ class MainWindow:
 
     # Функция Тест
     def do_test(self):
-        employee = EmployeeDataObject(first_name = "Ирина", middle_name = "Анатольевна", last_name = "Князева", department_id=3)
+        employee = EmployeeDataObject(first_name="Вера", middle_name="Михайловна", last_name="Янова", department_id=1)
         print(employee.employee_id)
         EmployeeDataHandler.insert(employee)
         print(employee.employee_id)
         print("Готово")
+
+    # Открытие списка Отделы
+    def do_list_departments(self):
+        rpt = DepartmentsWindow()
+        rpt.open()
+
+    # Открытие списка Сотрудники
+    def do_list_employees(self):
+        rpt = EmployeesWindow()
+        rpt.open()
 
 
     def do_report_departments(self):

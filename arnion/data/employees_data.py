@@ -108,7 +108,7 @@ class EmployeeDataHandler:
     def delete_by_id(employee_id: int):
         try:
             with my_connection_handler.get_connection() as cnn:
-                insert_query = "DELETE employees WHERE employee_id=" + str(employee_id)
+                insert_query = "DELETE FROM employees WHERE employee_id=" + str(employee_id)
                 with cnn.cursor() as cursor:
                     cursor.execute(insert_query)
         except:
